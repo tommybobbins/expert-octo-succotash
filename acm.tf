@@ -5,8 +5,6 @@ resource "aws_acm_certificate" "ssl_certificate" {
   #validation_method         = "EMAIL"
   validation_method = "DNS"
 
-  tags = var.common_tags
-
   lifecycle {
     create_before_destroy = true
   }

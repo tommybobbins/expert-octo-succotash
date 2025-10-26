@@ -1,96 +1,5 @@
-#---------------------------------------------------------------------------------------------------------------------
-# REQUIRED MODULE PARAMETERS
-# These variables must be passed in by the operator.
-# ---------------------------------------------------------------------------------------------------------------------
-
-variable "aws_region" {
-  description = "The AWS region in which the ECS Service will be created."
-  type        = string
-}
-
-variable "service_name" {
-  description = "The name of the ECS service (e.g. my-service-stage)"
-  type        = string
-}
-
-variable "platform_version" {
-  description = "The ECS Fargate version to run Grafana on"
-  type        = string
-}
-
-# variable "ecs_cluster" {
-#   description = "The ECS cluster to run the service on"
-#   type        = string
-# }
-
-# Docker image configuration
-
-variable "image" {
-  description = "The Docker image to run"
-  type        = string
-}
-
-variable "image_version" {
-  description = "Which version (AKA tag) of the var.image Docker image to deploy (e.g. 0.57)"
-  type        = string
-}
-
-variable "container_port" {
-  description = "The port number on which this service's Docker container accepts incoming HTTP or HTTPS traffic."
-  type        = number
-}
-
-# Runtime properties of this ECS Service in the ECS Cluster
-
-variable "cpu" {
-  description = "The number of CPU units to allocate to the ECS Service."
-  type        = number
-}
-
-variable "memory" {
-  description = "How much memory, in MB, to give the ECS Service."
-  type        = number
-}
-
-variable "desired_number_of_tasks" {
-  description = "How many instances of the ECS Service to run across the ECS cluster"
-  type        = number
-}
-
-variable "allow_inbound_from_cidr_blocks" {
-  description = "A list of IP CIDR blocks allowed to access the service"
-  type        = list(any)
-}
-
-# VPC information
-
-variable "vpc_id" {
-  description = "The VPC ID in which to deploy the resources"
-  type        = string
-}
-
-variable "private_subnet_ids" {
-  description = "The list of private subnet IDs"
-  type        = list(any)
-}
-
-variable "public_subnet_ids" {
-  description = "The list of public subnet IDs"
-  type        = list(any)
-}
-
-variable "ssl_cert_arn" {
-  description = "The ARN of the SSL certificate to use on the ALB"
-  type        = string
-}
-
-# ---------------------------------------------------------------------------------------------------------------------
-# OPTIONAL MODULE PARAMETERS
-# These variables have defaults, but may be overridden by the operator.
-# ---------------------------------------------------------------------------------------------------------------------
-
 variable "health_check_grace_period_seconds" {
-  description = "Seconds to ignore failing load balancer health checks on newly instantiated tasks to prevent premature shutdown, up to 1800. Only valid for services configured to use load balancers."
+  description = "Seconds to ignore failing load balancer health checks on newly instantiated tasks to prevent premature shutdown, up to 1800"
   type        = number
   default     = 15
 }
@@ -108,6 +17,9 @@ variable "alb_target_group_deregistration_delay" {
   type        = number
   default     = 15
 }
+
+
+
 
 # Deployment Options
 
@@ -164,5 +76,5 @@ variable "health_check_matcher" {
 variable "health_check_path" {
   description = "URL to perform health checks against"
   type        = string
-  default     = "/"
+  default     = "/login"
 }

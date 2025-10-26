@@ -9,7 +9,7 @@ resource "aws_route53_record" "grafana" {
   zone_id = data.aws_route53_zone.main.zone_id
   name    = "grafana"
   type    = "CNAME"
-  records        = [module.grafana_ecs.fully_qualified_domain_name]
+  records        = [module.ecs_efs.fqdn]
   ttl = 300
 
 }
