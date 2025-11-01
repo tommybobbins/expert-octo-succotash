@@ -36,6 +36,11 @@ resource "aws_ecs_task_definition" "grafana-efs" {
 
     efs_volume_configuration {
       file_system_id = aws_efs_file_system.grafana[0].id
+      transit_encryption = "ENABLED"
+      authorization_config {
+        access_point_id = aws_efs_access_point.grafana.id
+        iam             = "DISABLED"
+      }
     }
   }
 

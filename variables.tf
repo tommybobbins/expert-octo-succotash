@@ -21,3 +21,9 @@ variable "domain_name" {
   type        = string
 
 }
+
+variable "env" {
+  description = "Environment"
+  type        = string
+  default     = "prd"
+}

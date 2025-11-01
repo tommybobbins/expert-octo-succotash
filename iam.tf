@@ -37,7 +37,7 @@ resource "aws_iam_role_policy_attachment" "task_ssm_ro" {
 
 resource "aws_iam_role_policy_attachment" "grafana_ssm_ro" {
   role = aws_iam_role.grafana.name
-  # policy_arn = "arn:aws:iam::aws:policy/AmazonSSMReadOnlyAccess"
+  #policy_arn = "arn:aws:iam::aws:policy/AmazonSSMReadOnlyAccess"
   policy_arn = aws_iam_policy.grafana_config.arn
 }
 
@@ -61,3 +61,19 @@ resource "aws_iam_policy" "grafana_config" {
   policy = data.aws_iam_policy_document.grafana_config.json
 }
 
+resource "random_pet" "grafana" {
+  length = 4
+  prefix = "octo"
+}
+
+resource "aws_ssm_parameter" "grafana_config" {
+  name        = "/grafana/${var.env}/credentials"
+  description = "Grafana Credentials"
+  type        = "String"
+  value = jsonencode({
+    "GF_SECURITY_ADMIN_USER" : "octoadmin",
+    "GF_SECURITY_ADMIN_PASSWORD" : random_pet.grafana.id })
+  lifecycle {
+    ignore_changes = [value]
+  }
+}
