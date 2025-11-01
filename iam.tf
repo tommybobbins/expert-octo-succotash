@@ -30,3 +30,7 @@ resource "aws_iam_role" "grafana" {
   tags               = local.common_tags
 }
 
+resource "aws_iam_role_policy_attachment" "task_ssm_ro" {
+  role       = aws_iam_role.grafana_execution.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonSSMReadOnlyAccess"
+}
