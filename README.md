@@ -17,6 +17,11 @@ This error is because the VPC is IPv6 enabled, so the security groups and EFS al
 
 Grafana saves it's configuration data to /var/lib/grafana as files and a SQLite database. One of the problems with the container is that /var/lib/grafana must be owned by uid:gid of 472 and allow group writeable permission.
 
+
+
+
+
+
 To fix this, we need to create a /grafana directory on the EFS share and using an EC2, 
 
 ```
@@ -27,12 +32,12 @@ chmod g+w /mnt/grafana
 umount /mnt
 ```
 
-I need to find a way to do this using an equivalent of an init container in ECS.
+This was fixed with the ```aws_efs_access_point``` which sets the permissions correctly on the /grafana mount point.
 
 ### TIL
 
 - grafana runs under uid 472 and so /var/lib/grafana needs to exist and chowned to that user
-- Ubuntu not invented here syndrome is still very strong.
+- Ubuntu not invented here syndrome is still very strong, so we need to use grafana/grafan
 
 
 ## INSTALL
