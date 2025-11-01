@@ -1,5 +1,5 @@
-# expert-octo-succotash
-ECS, EFS and Grafana PoC
+# expert-octo-succotash (Work In Progress, do not use). 
+ECS, EFS and Grafana PoC. Not currently writing to /var/lib/grafana on the EFS share, need to fix this.
 
 
 This error is because the VPC is IPv6 enabled, so the security groups and EFS also need to be considered.
