@@ -5,7 +5,7 @@ resource "aws_ecs_task_definition" "grafana-efs" {
   family = "${var.name}-${terraform.workspace}-grafana"
   container_definitions = templatefile("${path.module}/task-definitions/grafana-efs.tpl",
     {
-      image              = "${var.image_name}:${var.image_tag}"
+      image              = "${var.image_name}${var.image_tag}" # Remember to ad the colon to the image_tag 
       cpu                = var.cpu
       memory             = var.memory
       container_port     = var.container_port
@@ -43,8 +43,8 @@ resource "aws_ecs_task_definition" "grafana-efs" {
 }
 
 resource "aws_ecs_service" "grafana" {
-  name    = "${var.name}-${terraform.workspace}-grafana"
-  cluster = var.aws_ecs_cluster.id
+  name             = "${var.name}-${terraform.workspace}-grafana"
+  cluster          = var.aws_ecs_cluster.id
   task_definition  = aws_ecs_task_definition.grafana-efs[0].arn
   desired_count    = 1
   launch_type      = "FARGATE"

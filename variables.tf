@@ -18,6 +18,6 @@ variable "access_ips" {
 
 variable "domain_name" {
   description = "Domain name for the service"
-  type = string
+  type        = string
 
 }

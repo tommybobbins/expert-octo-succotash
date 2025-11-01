@@ -31,8 +31,8 @@ module "ecs_efs" {
 
   execution_role = aws_iam_role.grafana_execution
   task_role      = aws_iam_role.grafana
-  image_name     = "public.ecr.aws/ubuntu/grafana"
-  image_tag      = "12.0-24.04"
+  image_name     = "grafana/grafana"
+  image_tag      = ":latest"
 
   admin_user                                 = local.admin_user
   aws_secretsmanager_secret-admin_password   = { "arn" : "foo" }

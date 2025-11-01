@@ -6,11 +6,11 @@ data "aws_route53_zone" "main" {
 
 resource "aws_route53_record" "grafana" {
   provider = aws.acm_provider
-  zone_id = data.aws_route53_zone.main.zone_id
-  name    = "grafana"
-  type    = "CNAME"
-  records        = [module.ecs_efs.fqdn]
-  ttl = 300
+  zone_id  = data.aws_route53_zone.main.zone_id
+  name     = "grafana"
+  type     = "CNAME"
+  records  = [module.ecs_efs.fqdn]
+  ttl      = 300
 
 }
 

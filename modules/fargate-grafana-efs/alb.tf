@@ -20,9 +20,9 @@ resource "aws_security_group" "alb_sg" {
   }
 
   egress {
-    from_port   = var.container_port
-    to_port     = var.container_port
-    protocol    = "tcp"
+    from_port        = var.container_port
+    to_port          = var.container_port
+    protocol         = "tcp"
     cidr_blocks      = var.aws_vpc_cidr
     ipv6_cidr_blocks = var.aws_vpc_ipv6_cidr_block
   }

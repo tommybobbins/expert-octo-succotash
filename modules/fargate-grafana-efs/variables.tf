@@ -134,13 +134,13 @@ variable "image_tag" {
 }
 
 variable "container_port" {
-  type = string
-  default = "3000"
+  type        = string
+  default     = "3000"
   description = "Container TCP port"
 }
 
 variable "ssl_cert_arn" {
-  type = string
-  default = ""
+  type        = string
+  default     = ""
   description = "ACM arn"
 }

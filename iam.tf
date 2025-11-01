@@ -34,3 +34,30 @@ resource "aws_iam_role_policy_attachment" "task_ssm_ro" {
   role       = aws_iam_role.grafana_execution.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonSSMReadOnlyAccess"
 }
+
+resource "aws_iam_role_policy_attachment" "grafana_ssm_ro" {
+  role = aws_iam_role.grafana.name
+  # policy_arn = "arn:aws:iam::aws:policy/AmazonSSMReadOnlyAccess"
+  policy_arn = aws_iam_policy.grafana_config.arn
+}
+
+data "aws_iam_policy_document" "grafana_config" {
+  statement {
+    actions = [
+      "ssm:DescribeParameters",
+    ]
+    resources = ["*"]
+  }
+  statement {
+    actions = [
+      "ssm:GetParameters",
+    ]
+    resources = [aws_ssm_parameter.grafana_config.arn]
+  }
+}
+
+resource "aws_iam_policy" "grafana_config" {
+  name   = "grafana_retrieve_from_ssm"
+  policy = data.aws_iam_policy_document.grafana_config.json
+}
+
