@@ -1,6 +1,10 @@
 # expert-octo-succotash (Work In Progress, do not use). 
 ECS, EFS and Grafana PoC. Not currently writing to /var/lib/grafana on the EFS share, need to fix this.
 
+TIL:
+grafana runs under uid 472 and so /var/lib/grafana needs to exist and chowned to that user
+Ubuntu not invented here syndrome is still very strong.
+
 
 This error is because the VPC is IPv6 enabled, so the security groups and EFS also need to be considered.
 
