@@ -13,14 +13,15 @@ ResourceInitializationError: failed to invoke EFS utils commands to set up EFS v
 This error is because the VPC is IPv6 enabled, so the security groups and EFS also need to be considered.  To fix this, EFS need to be made dual stack and the Security Groups need to be adjusted to allow NFS on TCP port 2049.
 
 
+![Grafana on ECS Backed by EFS](images/Grafana-EFS-ECS.png)
+
 ## Grafana persistence
 
 Grafana saves it's configuration data to /var/lib/grafana as files and a SQLite database. One of the problems with the container is that /var/lib/grafana must be owned by uid:gid of 472 and allow group writeable permission.
 
+### FIXES
 
-
-
-
+#### Bodge
 
 To fix this, we need to create a /grafana directory on the EFS share and using an EC2, 
 
@@ -31,6 +32,7 @@ chown 472:472 /mnt/grafana
 chmod g+w /mnt/grafana 
 umount /mnt
 ```
+#### Proper Job
 
 This was fixed with the ```aws_efs_access_point``` which sets the permissions correctly on the /grafana mount point.
 
