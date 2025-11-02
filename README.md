@@ -62,8 +62,15 @@ resource "aws_efs_access_point" "grafana" {
 
 ## Install the infrastructure for Deploying to AWS
 
+Create a ```terraform.tfvars``` with content similar to the following to allow the R53 records to be created dynamically. The access_ips will be a list of allowed IPs which can access the ALB:
 ``` 
-cd infrastructure
+domain_name = "bobbins.org"
+access_ips = ["1.22.33.44/32"]
+```
+
+Deploy the terrafom as normal
+
+```
 tofu init
 tofu plan
 tofu apply
